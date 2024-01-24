@@ -562,6 +562,8 @@ class CalculatorRequest extends AbstractRequest
     public function setPointOutId(string $point_out_id)
     {
         $this->pointOutId = $point_out_id;
+
+        return $this;
     }
 
     public function getPointOutId()
@@ -572,6 +574,8 @@ class CalculatorRequest extends AbstractRequest
     public function setPointInId(string $point_in_id)
     {
         $this->pointInId = $point_in_id;
+
+        return $this;
     }
 
     public function getPointInId()
