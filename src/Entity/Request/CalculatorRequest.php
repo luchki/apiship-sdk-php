@@ -97,6 +97,8 @@ class CalculatorRequest extends AbstractRequest
      * @var string Пользовательское поле. В это поле можно передать, например, название сайта и по нему строить правила в редакторе сайтов.
      */
     public $customCode;
+    public $pointOutId;
+    public $pointInId;
 
     /**
      * @return From
@@ -104,12 +106,6 @@ class CalculatorRequest extends AbstractRequest
      */
     public function getFrom()
     {
-        if (!$this->from) {
-            throw new RequiredParameterException(
-                'Property "' . get_class($this) . '::from" is required.'
-            );
-        }
-
         return $this->from;
     }
 
@@ -130,12 +126,6 @@ class CalculatorRequest extends AbstractRequest
      */
     public function getTo()
     {
-        if (!$this->to) {
-            throw new RequiredParameterException(
-                'Property "' . get_class($this) . '::to" is required.'
-            );
-        }
-
         return $this->to;
     }
 
@@ -151,9 +141,9 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @deprecated
      * @return float
      * @throws RequiredParameterException
+     * @deprecated
      */
     public function getWeight()
     {
@@ -168,10 +158,10 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @deprecated
      * @param float $weight
      *
      * @return CalculatorRequest
+     * @deprecated
      */
     public function setWeight($weight)
     {
@@ -180,9 +170,9 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @deprecated
      * @return int
      * @throws RequiredParameterException
+     * @deprecated
      */
     public function getWidth()
     {
@@ -197,10 +187,10 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @deprecated
      * @param int $width
      *
      * @return CalculatorRequest
+     * @deprecated
      */
     public function setWidth($width)
     {
@@ -209,9 +199,9 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @deprecated
      * @return int
      * @throws RequiredParameterException
+     * @deprecated
      */
     public function getHeight()
     {
@@ -226,10 +216,10 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @deprecated
      * @param int $height
      *
      * @return CalculatorRequest
+     * @deprecated
      */
     public function setHeight($height)
     {
@@ -238,9 +228,9 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @deprecated
      * @return int
      * @throws RequiredParameterException
+     * @deprecated
      */
     public function getLength()
     {
@@ -255,10 +245,10 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @deprecated
      * @param int $length
      *
      * @return CalculatorRequest
+     * @deprecated
      */
     public function setLength($length)
     {
@@ -567,5 +557,25 @@ class CalculatorRequest extends AbstractRequest
     {
         $this->customCode = $customCode;
         return $this;
+    }
+
+    public function setPointOutId(string $point_out_id)
+    {
+        $this->pointOutId = $point_out_id;
+    }
+
+    public function getPointOutId()
+    {
+        return $this->pointOutId;
+    }
+
+    public function setPointInId(string $point_in_id)
+    {
+        $this->pointInId = $point_in_id;
+    }
+
+    public function getPointInId()
+    {
+        return $this->pointInId;
     }
 }
