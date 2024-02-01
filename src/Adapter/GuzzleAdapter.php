@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
 use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
@@ -48,7 +49,8 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
         ClientInterface $client = null,
         ExceptionInterface $exception = null,
         $platform = null
-    ) {
+    )
+    {
         if (is_string($login) && $login && is_string($password) && $password) {
             $this->login = trim($login);
             $this->password = trim($password);
@@ -207,5 +209,36 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
         $this->response = $this->client->request("POST", $this->getUrl() . $url, $options);
 
         return (string)$this->response->getBody();
+    }
+
+    public function getAsync($url, array $headers = [], array $query = []): PromiseInterface
+    {
+        $options['headers'] = $headers;
+        $options['query'] = $query;
+
+        return $this->client->requestAsync("GET", $this->getUrl() . $url, $options);
+    }
+
+    public function deleteAsync($url, array $headers = [])
+    {
+        $options['headers'] = $headers;
+
+        return $this->client->requestAsync("DELETE", $this->getUrl() . $url, $options);
+    }
+
+    public function putAsync($url, array $headers = [], $content = ''): PromiseInterface
+    {
+        $options['headers'] = array_merge($headers, ['content-type' => 'application/json']);
+        $options['body'] = $content;
+
+        return $this->client->requestAsync("PUT", $this->getUrl() . $url, $options);
+    }
+
+    public function postAsync($url, array $headers = [], $content = ''): PromiseInterface
+    {
+        $options['headers'] = array_merge($headers, ['content-type' => 'application/json']);
+        $options['body'] = $content;
+
+        return $this->client->requestAsync("POST", $this->getUrl() . $url, $options);
     }
 }

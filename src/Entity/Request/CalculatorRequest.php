@@ -99,6 +99,7 @@ class CalculatorRequest extends AbstractRequest
     public $customCode;
     public $pointOutId;
     public $pointInId;
+    public $tariffId;
 
     /**
      * @return From
@@ -581,5 +582,17 @@ class CalculatorRequest extends AbstractRequest
     public function getPointInId()
     {
         return $this->pointInId;
+    }
+
+    public function getTariffId()
+    {
+        return $this->tariffId;
+    }
+
+    public function setTariffId($tariffId)
+    {
+        $this->tariffId = $tariffId;
+
+        return $this;
     }
 }

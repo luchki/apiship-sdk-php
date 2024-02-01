@@ -3,6 +3,7 @@
 namespace Apiship\Adapter;
 
 use Apiship\Exception\ExceptionInterface;
+use GuzzleHttp\Promise\PromiseInterface;
 use RuntimeException;
 
 interface AdapterInterface
@@ -47,6 +48,47 @@ interface AdapterInterface
      *
      */
     public function post($url, array $headers = [], $content = '');
+
+    /**
+     * @param string $url
+     * @param array $headers (optional)
+     * @param array $query (optional)
+     *
+     * @return PromiseInterface
+     * @throws RuntimeException|ExceptionInterface
+     *
+     */
+    public function getAsync($url, array $headers = [], array $query = []): PromiseInterface;
+
+    /**
+     * @param string $url
+     * @param array $headers (optional)
+     *
+     * @throws RuntimeException|ExceptionInterface
+     */
+    public function deleteAsync($url, array $headers = []);
+
+    /**
+     * @param string $url
+     * @param array $headers (optional)
+     * @param string $content (optional)
+     *
+     * @return PromiseInterface
+     * @throws RuntimeException|ExceptionInterface
+     *
+     */
+    public function putAsync($url, array $headers = [], $content = ''): PromiseInterface;
+
+    /**
+     * @param string $url
+     * @param array $headers (optional)
+     * @param string $content (optional)
+     *
+     * @return PromiseInterface
+     * @throws RuntimeException|ExceptionInterface
+     *
+     */
+    public function postAsync($url, array $headers = [], $content = ''): PromiseInterface;
 
     /**
      * @return null|array

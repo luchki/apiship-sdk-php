@@ -9,6 +9,7 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -45,7 +46,8 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
         ClientInterface $client = null,
         ExceptionInterface $exception = null,
         $platform = null
-    ) {
+    )
+    {
         $this->setToken($accessToken);
 
         $this->test = (bool)$test;
@@ -195,5 +197,36 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
     protected function login()
     {
         return $this->accessToken;
+    }
+
+    public function getAsync($url, array $headers = [], array $query = []): PromiseInterface
+    {
+        $options['headers'] = $headers;
+        $options['query'] = $query;
+
+        return $this->client->requestAsync("GET", $this->getUrl() . $url, $options);
+    }
+
+    public function deleteAsync($url, array $headers = [])
+    {
+        $options['headers'] = $headers;
+
+        return $this->client->requestAsync("DELETE", $this->getUrl() . $url, $options);
+    }
+
+    public function putAsync($url, array $headers = [], $content = ''): PromiseInterface
+    {
+        $options['headers'] = array_merge($headers, ['content-type' => 'application/json']);
+        $options['body'] = $content;
+
+        return $this->client->requestAsync("PUT", $this->getUrl() . $url, $options);
+    }
+
+    public function postAsync($url, array $headers = [], $content = ''): PromiseInterface
+    {
+        $options['headers'] = array_merge($headers, ['content-type' => 'application/json']);
+        $options['body'] = $content;
+
+        return $this->client->requestAsync("POST", $this->getUrl() . $url, $options);
     }
 }
