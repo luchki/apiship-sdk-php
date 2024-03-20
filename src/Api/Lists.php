@@ -2,6 +2,7 @@
 
 namespace Apiship\Api;
 
+use Apiship\Entity\Response\BaseResponse;
 use Apiship\Entity\Response\ListsPointsResponse;
 use Apiship\Entity\Response\ListsProvidersResponse;
 use Apiship\Entity\Response\ListsServicesResponse;
@@ -178,5 +179,20 @@ class Lists extends AbstractApi
         }
 
         return $response;
+    }
+
+    public function getTariffs(?string $providerKey = null, int $limit = 100, int $offset = 0) {
+        $query = [
+            'limit'  => $limit,
+            'offset' => $offset,
+        ];
+
+        if ($providerKey !== null) {
+            $query['filter'] = "providerKey=" . $providerKey;
+        }
+
+        $resultJson = $this->adapter->get('lists/tariffs', [], $query);
+
+        return (new BaseResponse())->setOriginJson($resultJson);
     }
 }
