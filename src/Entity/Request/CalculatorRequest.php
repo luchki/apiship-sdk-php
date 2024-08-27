@@ -97,9 +97,24 @@ class CalculatorRequest extends AbstractRequest
      * @var string Пользовательское поле. В это поле можно передать, например, название сайта и по нему строить правила в редакторе сайтов.
      */
     public $customCode;
-    public $pointOutId;
-    public $pointInId;
+
+    /**
+     * @deprecated
+     * @var int Тариф по которому требуется вести расчет
+     */
     public $tariffId;
+
+    public $tariffIds;
+
+    /**
+     * @var int Идентификатор ПВЗ от которого вести расчет
+     */
+    public $pointInId;
+
+    /**
+     * @var int Идентификатор ПВЗ до которого вести расчет
+    */
+    public $pointOutId;
 
     /**
      * @return From
@@ -560,38 +575,38 @@ class CalculatorRequest extends AbstractRequest
         return $this;
     }
 
-    public function setPointOutId(string $point_out_id)
-    {
-        $this->pointOutId = $point_out_id;
-
-        return $this;
-    }
-
-    public function getPointOutId()
-    {
-        return $this->pointOutId;
-    }
-
-    public function setPointInId(string $point_in_id)
-    {
-        $this->pointInId = $point_in_id;
-
-        return $this;
-    }
-
-    public function getPointInId()
-    {
-        return $this->pointInId;
-    }
-
-    public function getTariffId()
+    /**
+     * @deprecated
+     */
+    public function getTariffId(): int
     {
         return $this->tariffId;
     }
 
+    /**
+     * @deprecated
+     */
     public function setTariffId($tariffId)
     {
         $this->tariffId = $tariffId;
+        return $this;
+    }
+
+    public function getTariffIds(): ?array
+    {
+        return $this->tariffIds;
+    }
+
+    public function setTariffIds(?array $tariffIds): self
+    {
+        $this->tariffIds = $tariffIds;
+        return $this;
+    }
+
+    public function getPointInId(): int
+    {
+        return $this->pointInId;
+    }
 
         return $this;
     }
