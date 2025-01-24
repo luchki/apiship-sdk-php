@@ -113,7 +113,7 @@ class CalculatorRequest extends AbstractRequest
 
     /**
      * @var int Идентификатор ПВЗ до которого вести расчет
-    */
+     */
     public $pointOutId;
 
     /**
@@ -603,11 +603,14 @@ class CalculatorRequest extends AbstractRequest
         return $this;
     }
 
-    public function getPointInId(): int
+    public function getPointInId()
     {
         return $this->pointInId;
     }
 
-        return $this;
+    public function getPointOutId()
+    {
+        return $this->pointOutId;
     }
+
 }
