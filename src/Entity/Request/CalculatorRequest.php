@@ -613,4 +613,14 @@ class CalculatorRequest extends AbstractRequest
         return $this->pointOutId;
     }
 
+    public function setPointInId(int $pointInId): void
+    {
+        $this->pointInId = $pointInId;
+    }
+
+    public function setPointOutId(int $pointOutId): void
+    {
+        $this->pointOutId = $pointOutId;
+    }
+
 }
